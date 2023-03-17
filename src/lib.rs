@@ -74,7 +74,9 @@ impl Chip8 {
                 "CHIP-8 program must be 3,584 (0xE00) bytes or smaller.",
             ))
         } else {
-            self.mem[0x200..0x200 + program.len()].copy_from_slice(program);
+            for i in 0x200..0x200 + program.len() {
+                self.mem[i] = program[i - 0x200];
+            }
             Ok(())
         }
     }
